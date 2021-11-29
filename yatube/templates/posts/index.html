@@ -1,0 +1,47 @@
+{% extends "base.html" %} 
+{% load thumbnail %}
+  {% block title %}
+    Последние обновления на сайте
+  {% endblock %}
+  {% block content %}
+    
+      <div class="row p-2 m-auto bg-light text-dark rounded"> 
+        <aside class="col-12 col-md-3 shadow-lg p-2 mb-2 rounded">
+          <div class="list-group">
+            <div class="list-group-item list-group-item-warning">
+              <h5>Популярные посты</h5>
+            </div>
+            {% for post in posts %}
+              <div class="list-group-item">
+                {{ post.text }}
+              </div>
+            {% endfor %}
+            <div class="list-group">
+              <div class="list-group-item list-group-item-warning">
+                <h5>Сообщества</h5>
+              </div>
+              {% for group in groups %}
+                <div class="list-group-item">
+                  {{ group.title }}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </aside>
+             
+        <article class="col-12 col-md-9">
+          <div class="shadow-lg p-2 rounded">
+            <div class="container">
+              {% include 'posts/includes/switcher.html' %}
+            </div>
+            {% for post in page_obj %}
+            {% include 'posts/includes/post_list.html' %}      
+      
+            {% if not forloop.last %}<hr>{% endif %}
+            {% endfor %}
+            {% include 'posts/includes/paginator.html' %}
+          </div>
+        </article>
+      </div>    
+    
+  {% endblock %}

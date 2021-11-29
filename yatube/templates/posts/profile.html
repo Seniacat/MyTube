@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+  {% if author.get_full_name %}
+    {{ author.get_full_name }} 
+  {% else %}
+    {{ author.username }}
+  {% endif %}
+  профайл пользователя
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <aside class="col-12 col-md-3 shadow-lg p-2 mb-2 bg-white rounded">
+      {% include 'users/includes/bio.html' %}
+    </aside>
+    <article class="col-12 col-md-9 shadow-lg p-2 mb-2 bg-white rounded">
+      <div class="shadow-lg p-2 rounded">
+        {% for post in page_obj %}
+          <article>
+            <ul class="list-group p-1 mb-2 list-group-flush">
+              <li li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <h4>{{ post.author.get_full_name }}</h4>
+                </span>
+                <span>{{ post.created|date:"d E Y" }}</span>    
+              </li>
+            </ul>
+            {% thumbnail post.image "900x500" crop="center" upscale=True as im %}
+              <img class="card-img my-2" src="{{ im.url }}">
+            {% endthumbnail %}    
+            <p>{{ post.text|linebreaksbr }}</p>
+            <a
+              class="btn btn-outline-info"
+              href="{% url 'posts:post_detail' post.id %}">читать пост</a>
+            {% if post.group %}    
+              <a
+                class="btn btn-outline-info"
+                href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+            {% endif %}
+          </article>    
+          {% if not forloop.last %}<hr>{% endif %}
+        {% endfor %}
+
+        {% include 'posts/includes/paginator.html' %}
+      </article>
+    </div>
+  </div>
+{% endblock content %}

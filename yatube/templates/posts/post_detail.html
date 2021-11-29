@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load user_filters %} 
+{% load thumbnail %}
+{% block title %}
+  Пост {{ post.text|slice:":30" }}
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <aside class="col-12 col-md-3">
+      <ul class="list-group list-group-flush">
+        {% if post.group.slug %}
+          <li class="list-group-item">
+            Группа: {{ post.group.title }}
+            <a href="{% url 'posts:group_list' post.group.slug %}">
+              все записи группы
+            </a>
+          </li>
+        {% endif %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Всего постов автора:<span >{{ amount }}</span>
+        </li>
+        <li class="list-group-item">
+          <a href="{% url 'posts:profile' post.author.username %}">
+            все посты пользователя
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <article class="col-12 col-md-9">
+      <div class="container py-2">
+       <ul class="list-group p-1 mb-2 list-group-flush">
+        <li class="list-group-item">
+          <div class="row d-flex justify-content-between">
+            <span><strong>{{ post.author.get_full_name }}</strong></span>
+            <span class="text-muted">
+              {{ post.created|date:"d E Y" }}
+            </span>
+          </div>
+          <div class="text-center">
+            <h3>{{ post.title }}</h2>
+          </div>
+        </li>
+        {% if post.image %}
+          <li class="list-group-item list-group-item-light">
+            {% thumbnail post.image "800x500" crop="center" upscale=True as im %}
+              <img class="card-img my-2" src="{{ im.url }}">
+            {% endthumbnail %}
+          </li>
+        {% endif %}
+        <li class="list-group-item d-flex justify-content-between">  
+          <p>{{ post.text|linebreaksbr }}</p>
+        </li>
+      </div>
+      {% if user.id == post.author.id %}
+        <div class="container p-2">          
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'posts:post_edit' post.id %}">
+            редактировать запись
+          </a>
+          <a class="btn btn-outline-primary btn-sm" href="{% url 'posts:post_delete' post.id %}">
+            удалить
+          </a>
+        </div>
+      {% endif %}
+      
+      {% include 'posts/includes/comments.html' %}
+      
+      {% include 'posts/includes/paginator.html' %}  
+    </article>
+  </div>
+{% endblock content %}
+

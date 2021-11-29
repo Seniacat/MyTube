@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+{% load thumbnail %}
+{% block title %}
+  Записи сообщества {{ group.title }}
+{% endblock %}
+{% block content %}
+  <div class="container p-2 m-auto bg-light text-dark rounded">
+    <div class="container shadow-lg p-2 rounded">
+      <div class="card bg-light align-items-center">
+        <h1> {{ group.title|capfirst }}</h1>
+        <div style="font-size:18px;font-weight:italic;">   
+          {{ group.description }}
+        </div>
+      </div>
+      {% for  post in page_obj %}
+      {% include 'posts/includes/post_list.html' %}  
+        {% if not forloop.last %}<hr>{% endif %}
+      {% endfor %}
+      {% include 'posts/includes/paginator.html' %}
+    </div>
+  </div>
+{% endblock content %}

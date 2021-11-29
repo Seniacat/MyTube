@@ -1,0 +1,86 @@
+{% load static %}
+  <nav 
+    class="navbar navbar-expand-lg navbar-light" 
+    style="background-color:#86B3D1; min-height:90px">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'posts:index' %}">
+        <div>
+          <img 
+            src="{% static 'img/log5.png' %}" 
+            width="35" 
+            height="40" 
+            class="d-inline-block align-top" 
+            alt="">
+          <span style="color:#9A1750;font-size:30px;font-weight:700">My</span><span style="font-size:30px;font-weight:500">tube</span>
+        </div>
+      </a>
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-toggle="collapse"
+        data-target="#navbarResponsive">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div 
+        class="collapse navbar-collapse"
+        id="navbarResponsive">
+        {% with request.resolver_match.view_name as view_name %}  
+        <ul class="nav nav-pills ml-auto">
+          <li class="nav-item-lg"> 
+            <a class="nav-link text-dark 
+              {% if view_name  == 'about:author' %}active{% endif %}"
+              style="font-size:18px; font-weight:500;" 
+            href="{% url 'about:author' %}">Об авторе</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark
+              {% if view_name  == 'about:tech' %}active{% endif %}"
+              style="font-size:18px; font-weight:500;" 
+             href="{% url 'about:tech' %}">Технологии</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item"> 
+            <a class="nav-link text-dark
+              {% if view_name  == 'posts:post_create' %}active{% endif %}"
+              style="font-size:18px; font-weight:500;"
+              href="{% url 'posts:post_create' %}">Новая запись</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link text-dark
+              {% if view_name  == 'users:password_change' %}active{% endif %}"
+              style="font-size:18px; font-weight:500;"
+              href="{% url 'users:password_change' %}">Изменить пароль</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link text-dark
+              {% if view_name  == 'users:logout' %}active{% endif %}"
+              style="font-size:18px; font-weight:500;"
+              href="{% url 'users:logout' %}">Выйти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark"
+              style="font-size:18px; font-weight:500;"
+              href="{% url 'posts:profile' request.user.username %}">
+                {{ request.user.username }}             
+            </a>
+          <li>
+          {% else %}
+          <li class="nav-item"> 
+            <a class="nav-link text-dark
+              {% if view_name  == 'users:login' %}active{% endif %}"
+              style="font-size:18px; font-weight:500;"
+              href="{% url 'users:login' %}">Войти</a>
+          </li>
+          <li class="nav-item"> 
+            <a class="nav-link text-dark
+              {% if view_name  == 'users:signup' %}active{% endif %}"
+              style="font-size:18px; font-weight:bold"
+              href="{% url 'users:signup' %}">Регистрация</a>
+          </li>
+          {% endif %}
+        </ul>
+        {% endwith %}
+      </div>
+    </div>
+  </nav>      
+  

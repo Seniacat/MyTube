@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Редактировать профиль{% endblock %}
+{% block content %}
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">Редактировать профиль</div>
+          <div class="card-body">
+            {% include 'users/includes/form.html' %}              
+              <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                  Сохранить изменения
+                </button>
+              </div>
+            </form>
+          </div> 
+        </div> 
+      </div> 
+  </div> 
+{% endblock %} 

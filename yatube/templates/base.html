@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="ru"> 
+  <head>    
+    <meta charset="utf-8"> 
+    <meta 
+      name="viewport" 
+      content="width=device-width, initial-scale=1.0">
+    <meta http-eqiuv="X-UA-Compatible" content="ie=edge"
+    <link rel="icon" href="{% static 'img/fav/fav.ico' %}" type="image">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180" 
+      href="{% static 'img/fav/apple-touch-icon.png' %}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'img/fav/favicon-32x32.png' %}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'img/fav/favicon-16x16.png' %}">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css.map' %}">
+    <script src="{% static 'js/jquery3.6.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>   
+    <script>
+      $(document).ready(function(){
+        var currentLocation = window.location.toString().toLowerCase();
+        $(".reply").on('click', function(){
+            var commentId = $(this).attr('data-id')
+            $("#form-"+commentId).fadeToggle();
+        })
+        $(".submit-reply").on('click', function(e){
+            e.preventDefault()
+            var parentId = $(this).attr('data-submit-reply')
+            var id = $(this).attr('data-id')
+            var text = $('textarea#'+id).val();
+            function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                        }
+                    }
+              }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+            data = {
+                user: "{{ request.user.username }}",
+                parentId: parentId,
+                text: text,
+                id: id,
+                csrfmiddlewaretoken: csrftoken
+            }
+            $.ajax({
+                method: "POST",
+                data: data,
+                url: "{% url 'posts:add_child_comment' %}",
+                success: function(data){
+                    window.location.replace(currentLocation)
+                }
+            })
+        })
+      })
+    </script>
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <header>
+      {% include 'includes/header.html' %}
+    </header>
+    <main style="background-color:#fdfcf9">
+      <div class="container py-5" style="min-width:75%">
+        {% block content %}
+        {% endblock %}
+      </div> 
+    </main>
+    <footer
+      class="border-top text-center py-3"
+      style="background-color:#fdfcf9"
+    >
+      {% include 'includes/footer.html' %}
+    </footer>
+  </body>
+</html>

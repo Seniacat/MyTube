@@ -1,0 +1,65 @@
+{% load static %}
+{% load thumbnail %}
+<div class="body">
+  {% if author.profile.avatar %}
+    {% thumbnail author.profile.avatar "350x350" crop="center" upscale=True as im %}
+      <img class="rounded-circle img-thumbnail mx-auto d-block img-fluid" src="{{ im.url }}">
+    {% endthumbnail %}
+  {% else %}
+    <img class="rounded-circle img-thumbnail mx-auto d-block img-fluid" src="{% static 'img/default_picture.png' %}">
+  {% endif %}
+    <div class="p-2 mb-2 rounded">
+      <div class="container px-4">
+        {% if request.user.is_authenticated %}{% if request.user != author %}
+          {% if following %}
+            <a
+              class="btn btn-outline-info"
+              href="{% url 'posts:profile_unfollow' author.username %}"
+            >
+              Отписаться
+            </a>
+          {% else %}
+            <a
+              class="btn btn-outline-info"
+              href="{% url 'posts:profile_follow' author.username %}"
+            >
+              Подписаться
+            </a>
+          {% endif %}
+          <a
+            class="btn btn-outline-info"
+            href="{% url 'posts:index' %}" role="button"
+          >
+            Cообщение
+          </a>
+        {% endif %}{% endif %}      
+      </div>
+    </div>  
+    <div class="p-2 mb-2 rounded">
+      {% if author.get_full_name %}
+        <p>Имя: {{ author.get_full_name }}</p>
+      {% endif %}
+      {% if author.profile.city %}
+        <p>Город: {{ author.profile.city }}</p>
+      {% endif %}
+      {% if author.profile.date_of_birth %}
+        </p>Дата рождения: {{ author.profile.date_of_birth }}</p>
+      {% endif %}
+      <p>Всего постов: {{ page_obj.paginator.count }}</p>
+      <p>Подписчики: {{ author.follower.count }}</p>
+    </div>
+    <hr>
+    {% if request.user == author %}
+      <div class="text-center">
+        <a
+          class="btn btn-outline-dark"
+          href="{% url 'users:update_profile' %}"
+          role="button"
+          >
+            Редактировать профиль
+          </a>
+      </div>
+    {% endif %}
+</div>  
+
+    

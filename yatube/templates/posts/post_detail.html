@@ -5,8 +5,8 @@
   Пост {{ post.text|slice:":30" }}
 {% endblock %}
 {% block content %}
-  <div class="row">
-    <aside class="col-12 col-md-3">
+  <div class="row p-2 mb-2 bg-white rounded">
+    <aside class="col-12 col-md-3 p-2 mb-2 bg-white rounded">
       <ul class="list-group list-group-flush">
         {% if post.group.slug %}
           <li class="list-group-item">
@@ -53,10 +53,10 @@
       </div>
       {% if user.id == post.author.id %}
         <div class="container p-2">          
-          <a class="btn btn-outline-primary btn-sm" href="{% url 'posts:post_edit' post.id %}">
+          <a class="btn btn-outline-info" href="{% url 'posts:post_edit' post.id %}">
             редактировать запись
           </a>
-          <a class="btn btn-outline-primary btn-sm" href="{% url 'posts:post_delete' post.id %}">
+          <a class="btn btn-outline-info" href="{% url 'posts:post_delete' post.id %}">
             удалить
           </a>
         </div>

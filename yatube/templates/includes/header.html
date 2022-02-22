@@ -1,7 +1,7 @@
 {% load static %}
   <nav 
     class="navbar navbar-expand-lg navbar-light" 
-    style="background-color:#86B3D1; min-height:90px">
+    style="background-color:#86B3D1; min-height:80px">
     <div class="container">
       <a class="navbar-brand" href="{% url 'posts:index' %}">
         <div>
@@ -22,7 +22,7 @@
           <span class="navbar-toggler-icon"></span>
       </button>
       <div 
-        class="collapse navbar-collapse"
+        class="collapse navbar-collapse flex-grow-0"
         id="navbarResponsive">
         {% with request.resolver_match.view_name as view_name %}  
         <ul class="nav nav-pills ml-auto">

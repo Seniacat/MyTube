@@ -21,6 +21,7 @@ class Profile(models.Model):
         verbose_name='Изображение',
         help_text='Загрузите изображение'
     )
+    status = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'Профили'

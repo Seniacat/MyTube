@@ -1,0 +1,18 @@
+{% load static %}
+{% load thumbnail %}
+
+{% if request.user.is_authenticated %}
+  <div class="body">
+    {% thumbnail request.user.profile.avatar "350x350" crop="center" upscale=True as im %}
+      <img class="rounded-circle img-thumbnail mx-auto d-block img-fluid" src="{{ im.url }}">
+    {% empty %}
+      <img class="rounded-circle img-thumbnail mx-auto d-block img-fluid" src="{% static 'img/default_picture.png' %}">
+    {% endthumbnail %}
+    <div class="p-2 mb-2 rounded text-center">
+      {% if request.user.profile.status %}
+        <strong>{{ request.user.profile.status }}</strong>
+      {% else %}
+        <p>Что у вас нового?</p> 
+      {% endif %}
+    </div>
+{% endif %}

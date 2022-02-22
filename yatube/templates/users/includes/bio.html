@@ -8,6 +8,18 @@
   {% else %}
     <img class="rounded-circle img-thumbnail mx-auto d-block img-fluid" src="{% static 'img/default_picture.png' %}">
   {% endif %}
+  <br>
+  {% if request.user == author %}
+      <div class="text-center">
+        <a
+          class="btn btn-outline-dark"
+          href="{% url 'users:update_profile' %}"
+          role="button"
+          >
+            Редактировать профиль
+          </a>
+      </div>
+    {% endif %}
     <div class="p-2 mb-2 rounded">
       <div class="container px-4">
         {% if request.user.is_authenticated %}{% if request.user != author %}
@@ -48,18 +60,6 @@
       <p>Всего постов: {{ page_obj.paginator.count }}</p>
       <p>Подписчики: {{ author.follower.count }}</p>
     </div>
-    <hr>
-    {% if request.user == author %}
-      <div class="text-center">
-        <a
-          class="btn btn-outline-dark"
-          href="{% url 'users:update_profile' %}"
-          role="button"
-          >
-            Редактировать профиль
-          </a>
-      </div>
-    {% endif %}
 </div>  
 
     

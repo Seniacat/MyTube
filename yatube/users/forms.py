@@ -16,4 +16,4 @@ class CreationForm(UserCreationForm):
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('date_of_birth', 'city', 'avatar')
+        fields = ('status', 'date_of_birth', 'city', 'avatar')

@@ -7,6 +7,7 @@ MyTube - проект социальной сети в которой можно
 ## Системные требования
 - Python 3.7+
 - Works on Linux, Windows, macOS
+- 
 ## Стек технологий:
 - Python 3.7
 - Django 3.2

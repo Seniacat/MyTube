@@ -14,15 +14,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'testserver',
-    'www.seniacat.pythonanywhere.com',
-    'seniacat.pythonanywhere.com',
-]
+ALLOWED_HOSTS = ['*']
 
 INTERNAL_IPS = ['127.0.0.1']
 
@@ -128,8 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 MEDIA_URL = '/media/'

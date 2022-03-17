@@ -18,27 +18,45 @@ MyTube - проект социальной сети в которой можно
 - CSS
 
 ### Запуск проекта в dev-режиме
-Клонировать репозиторий и перейти в него в командной строке. Создать и активировать виртуальное окружение c учетом версии Python 3.7:
+Клонировать репозиторий и перейти в него в командной строке. Перейти в папку проекта:
 ```
-git clone https://github.com/Seniacat/my_tube.git
+git clone https://github.com/Seniacat/MyTube.git
+cd MyTube
 ```
-Cоздать и активировать виртуальное окружение:
+Должен быть свободен порт 8000. PostgreSQL поднимается на 5432 порту, он тоже должен быть свободен.
+Cоздать и открыть файл .env с переменными окружения:
 ```
-python3 -m venv env
-source env/bin/activate
+cd infra
+touch .env
 ```
-Установить зависимости из файла requirements.txt:
+Заполнить .env файл с переменными окружения по примеру (SECRET_KEY см. в файле settings.py). 
+Необходимые для работы проекта переменные окружения можно найти в файле .env.example в текущей директории:
 ```
-python3 -m pip install --upgrade pip
-pip install -r requirements.txt
+echo DB_ENGINE=django.db.backends.postgresql >> .env
+
+echo DB_NAME=postgres >> .env
+
+echo POSTGRES_PASSWORD=postgres >> .env
+
+echo POSTGRES_USER=postgres  >> .env
+
+echo DB_HOST=db  >> .env
+
+echo DB_PORT=5432  >> .env
+
+echo SECRET_KEY=************ >> .env
 ```
-Выполнить миграции:
+Установить и запустить приложения в контейнерах (образ для контейнера web загружается из DockerHub):
 ```
-python3 manage.py migrate
+docker-compose up -d
 ```
-Запустить проект:
+Запустить миграции, создать суперюзера, собрать статику и заполнить БД:
 ```
-python3 manage.py runserver
+docker-compose exec web python manage.py migrate
+
+docker-compose exec web python manage.py createsuperuser
+
+docker-compose exec web python manage.py collectstatic --no-input 
 ```
 ### Развитие проекта
 Проект находится в стадии развития, есть планы по расширению функциональности: реализация возможности переписки между пользователями, возможности ставить лайки и выводить данные о количестве просмотров постов 

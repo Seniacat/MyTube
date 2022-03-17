@@ -1,5 +1,6 @@
 from .models import Comment
 
+
 def get_children(qs_child):
     res = []
     for comment in qs_child:

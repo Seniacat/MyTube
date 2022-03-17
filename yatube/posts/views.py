@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
@@ -145,7 +145,7 @@ def add_comment(request, post_id):
         comment.parent = None
         comment.is_child = False
         comment.save()
-    return redirect('posts:post_detail', post_id=post_id)
+    return redirect('posts:post_detail', post_id=post.id)
 
 
 @login_required
@@ -217,4 +217,3 @@ def profile_unfollow(request, username):
     follow = get_object_or_404(Follow, user=request.user, author=author)
     follow.delete()
     return redirect('posts:profile', username=username)
-

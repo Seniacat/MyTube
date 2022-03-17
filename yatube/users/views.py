@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView

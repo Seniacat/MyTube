@@ -3,6 +3,7 @@ from django.utils.html import mark_safe
 
 register = template.Library()
 
+
 @register.filter
 def comments_filter(comments_list, user_id):
     print(user_id)

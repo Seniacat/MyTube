@@ -11,7 +11,6 @@ from django.urls import reverse
 from ..forms import CommentForm, PostForm
 from ..models import Comment, Group, Post
 
-
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 User = get_user_model()
 

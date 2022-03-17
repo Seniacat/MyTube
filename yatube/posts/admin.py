@@ -34,7 +34,7 @@ class CommentAdmin(admin.ModelAdmin):
     )
     search_fields = ('text',)
     list_filter = ('created',)
-    
+
 
 class FollowAdmin(admin.ModelAdmin):
     list_display = (

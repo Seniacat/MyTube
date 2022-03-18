@@ -21,6 +21,8 @@ jobs:
       run: |
         python -m flake8 
         pytest
+      env:
+        use_sqlite: ${{ secrets.USE_SQLITE }}
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest

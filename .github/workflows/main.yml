@@ -21,7 +21,7 @@ jobs:
       run: |
         python -m flake8
         cd yatube/
-        USE_SQLITE=True
+        export USE_SQLITE=True
         python manage.py migrate
         pytest
       env:

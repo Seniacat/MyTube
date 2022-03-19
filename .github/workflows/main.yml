@@ -20,7 +20,6 @@ jobs:
     - name: Test with flake8 and pytest
       run: |
         python -m flake8
-        cd yatube/
         export USE_SQLITE=True
         python manage.py migrate
         pytest

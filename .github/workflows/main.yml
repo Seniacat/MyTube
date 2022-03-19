@@ -25,6 +25,9 @@ jobs:
         python manage.py migrate
         cd ../
         pytest
+        cd yatube/
+        export USE_SQLITE=False
+        cd ../
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest

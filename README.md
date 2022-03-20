@@ -1,3 +1,4 @@
+![mytube_workflow](https://github.com/Seniacat/MyTube/actions/workflows/main.yml/badge.svg)
 # MyTube
 MyTube - проект социальной сети в которой можно публиковать свои записи и комментировать чужие, подписываться на любимых авторов и ставить лайки.
 
